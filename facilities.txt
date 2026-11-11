@@ -1,0 +1,9 @@
+1 1 Sector_62_Police_Station
+1 4 Sector_18_Police_Post
+1 7 Sector_15_Police_Station
+1 9 Sector_50_Police_Station
+2 2 City_Hospital
+2 6 Sector_137_Hospital
+2 8 Kalindi_Hospital
+3 3 Botanical_Fire_Station
+3 5 Film_City_Fire_Station
