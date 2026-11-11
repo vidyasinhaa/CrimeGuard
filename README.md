@@ -3,10 +3,15 @@ JIIT Noida | MCA 1st Year 1st Sem | Data Structure Using C Lab (24M15CA111)
 
 ## Files
 main.c          -> the whole program
+
 locations.txt   -> id name           (places of the city)
+
 roads.txt       -> from to km blocked (blocked: 0 = open, 1 = blocked)
+
 facilities.txt  -> type place name   (1 = police, 2 = hospital, 3 = fire station)
+
 crimes.txt      -> id type place date description
+
 
 ## Run in VS Code
 1. File > Open Folder > choose the CrimeGuard folder
