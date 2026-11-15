@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CrimeGuard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="top">
+        <h1>CrimeGuard</h1>
+        <p>Smart Crime Reporting &amp; Safe Route Analyzer</p>
+    </header>
+
+    <main class="layout">
+
+        <!-- ================= LEFT SIDE: the 6 features ================= -->
+        <section class="panel">
+
+            <nav class="tabs">
+                <button class="tab-btn active" data-tab="report"  onclick="showTab('report')">Report</button>
+                <button class="tab-btn" data-tab="records" onclick="showTab('records')">Records</button>
+                <button class="tab-btn" data-tab="nearby"  onclick="showTab('nearby')">Nearby Help</button>
+                <button class="tab-btn" data-tab="route"   onclick="showTab('route')">Safe Route</button>
+                <button class="tab-btn" data-tab="roads"   onclick="showTab('roads')">Roads</button>
+                <button class="tab-btn" data-tab="hotspot" onclick="showTab('hotspot')">Hotspots</button>
+            </nav>
+
+            <!-- 1. REPORT A CRIME -->
+            <div id="tab-report" class="tab-content">
+                <h2>Report a crime</h2>
+                <div class="form">
+                    <label>Crime type
+                        <select id="reportType"></select>
+                    </label>
+                    <label>Place
+                        <select id="reportPlace"></select>
+                    </label>
+                    <label>Date
+                        <input type="date" id="reportDate">
+                    </label>
+                    <label>Short description
+                        <input type="text" id="reportDesc" maxlength="90" placeholder="What happened?">
+                    </label>
+                    <button class="btn" onclick="onReportCrime()">Save report</button>
+                </div>
+                <div id="reportResult"></div>
+                <div id="helpResult"></div>
+            </div>
+
+            <!-- 2. CRIME RECORDS -->
+            <div id="tab-records" class="tab-content">
+                <h2>Crime records</h2>
+                <div class="form row">
+                    <label>Crime type
+                        <select id="filterType" onchange="renderCrimes()"></select>
+                    </label>
+                    <label>Place
+                        <select id="filterPlace" onchange="renderCrimes()"></select>
+                    </label>
+                </div>
+                <div id="typeCounts" class="chips"></div>
+                <div id="crimeTable"></div>
+            </div>
+
+            <!-- 3. NEARBY FACILITY -->
+            <div id="tab-nearby" class="tab-content">
+                <h2>Nearby police / emergency help</h2>
+                <div class="form">
+                    <label>Your place
+                        <select id="nearbyPlace"></select>
+                    </label>
+                    <label>Facility type
+                        <select id="nearbyType"></select>
+                    </label>
+                    <label>Search within (km)
+                        <input type="number" id="nearbyKm" value="10" min="1" max="100">
+                    </label>
+                    <button class="btn" onclick="onNearby()">Find</button>
+                </div>
+                <div id="nearbyResult"></div>
+            </div>
+
+            <!-- 4. SAFE ROUTE -->
+            <div id="tab-route" class="tab-content">
+                <h2>Safe route analyzer</h2>
+                <div class="form">
+                    <label>From
+                        <select id="routeFrom"></select>
+                    </label>
+                    <label>To
+                        <select id="routeTo"></select>
+                    </label>
+                    <button class="btn" onclick="onSafeRoute()">Find route</button>
+                </div>
+                <div id="routeResult"></div>
+            </div>
+
+            <!-- 5. ROAD STATUS -->
+            <div id="tab-roads" class="tab-content">
+                <h2>Road status</h2>
+                <p class="note">Block a road and then run Safe Route again. The route will go around it.</p>
+                <div id="roadTable"></div>
+            </div>
+
+            <!-- 6. HOTSPOTS + CONNECTIVITY -->
+            <div id="tab-hotspot" class="tab-content">
+                <h2>Crime hotspots</h2>
+                <div id="hotspotList"></div>
+
+                <h2 class="space">Connectivity (BFS and DFS)</h2>
+                <div class="form row">
+                    <label>Start from
+                        <select id="connectStart"></select>
+                    </label>
+                    <button class="btn" onclick="onConnectivity()">Analyze</button>
+                </div>
+                <div id="connectResult"></div>
+            </div>
+
+        </section>
+
+        <!-- ================= RIGHT SIDE: the map ================= -->
+        <aside class="panel">
+            <h2>City map</h2>
+            <div id="map"></div>
+
+            <div class="legend">
+                <span><i class="dot" style="background:#2e9e5b"></i>Low risk</span>
+                <span><i class="dot" style="background:#e0a100"></i>Medium risk</span>
+                <span><i class="dot" style="background:#d64545"></i>High risk</span>
+                <span><i class="line dashed"></i>Blocked road</span>
+                <span><i class="line" style="background:#2f5bea"></i>Shortest route</span>
+                <span><i class="line" style="background:#1f9d55"></i>Safer route</span>
+            </div>
+
+            <div class="tools">
+                <button class="btn small light" onclick="onDownloadCrimes()">Download crimes.txt</button>
+                <button class="btn small light" onclick="onDownloadRoads()">Download roads.txt</button>
+                <button class="btn small danger" onclick="onResetData()">Reset sample data</button>
+            </div>
+            <p class="note">Your changes are saved in this browser, so they stay after you close the page.</p>
+        </aside>
+
+    </main>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
